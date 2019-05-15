@@ -8,6 +8,7 @@ import json
 
 
 class YelpTestSpider(RedisCrawlSpider):
+    name = 'yelp_test'
     # 增加redis_keys
     redis_key = 'yelpTestSpider:start_urls'
     # allowed_domains = ['yelp.com']

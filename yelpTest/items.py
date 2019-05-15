@@ -13,7 +13,7 @@ class YelpspiderItem(scrapy.Item):
     referer = scrapy.Field()
     # 当前页
     detail_page_url = scrapy.Field()
-    logo = scrapy.Field()
+    # logo = scrapy.Field()
     # 公司名
     company = scrapy.Field()
     address = scrapy.Field()

@@ -3,10 +3,6 @@
 BOT_NAME = 'yelpTest'
 SPIDER_MODULES = ['yelpTest.spiders']
 NEWSPIDER_MODULE = 'yelpTest.spiders'
-
-# Crawl responsibly by identifying yourself (and your website) on the user-agent
-# USER_AGENT = "Mozilla/5.0 (X11; Linux i686; U;) Gecko/20070322 Kazehakase/0.4.5"
-
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 # 修改request去重
@@ -22,6 +18,13 @@ SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderPriorityQueue"
 
 REDIS_HOST = '192.168.139.101'
 REDIS_PORT = 6379
+# 数据库配置
+MYSQL_HOST = "184.181.11.233"
+MYSQL_PORT = 3306
+MYSQL_USER = "ebuyhouse"
+MYSQL_PASSWD = "ebuyhouse135"
+MYSQL_DB = "crawl_data"
+# redis配置
 REDIRECT_ENABLED = False
 COOKIES_ENABLED = False
 # 延时0.5秒
@@ -30,14 +33,12 @@ DOWNLOAD_DELAY = 0.5
 DOWNLOAD_TIMEOUT = 30
 # 每个账号失败次数上限，失败次数多有可能已经被禁
 MAX_FAIL_TIME = 10
-
 DEFAULT_REQUEST_HEADERS = {
     'Accept-Encoding': 'gzip',
 }
 # 打开重试请求
 RETRY_TIMES = 10
 RETRY_ENABLED = True
-
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False
 # 下载中间件配置User-Agent池
@@ -60,18 +61,16 @@ USER_AGENTS = [
     "Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; fr) Presto/2.9.168 Version/11.52",
 ]
 USER_PASS = "wh429004:ylsvtvu1"
-
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
     'scrapy.contrib.downloadermiddleware.redirect.RedirectMiddleware': None,
     # 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware': 350,
-    'yelpSpider.middlewares.RandomUserAgent': 400,
-    'yelpSpider.middlewares.RandomProxy': 600,
-    'yelpSpider.middlewares.ProcessAllExceptionMiddleware': 750,
+    'yelpTest.middlewares.RandomUserAgent': 400,
+    'yelpTest.middlewares.RandomProxy': 600,
+    'yelpTest.middlewares.ProcessAllExceptionMiddleware': 750,
 }
 # 如果要保证纵向爬取的时候，数据漏爬，可以打开此配置
 AUTOTHROTTLE_ENABLED = True
-
 # scrapy_redis  将数据存放到 redis
 ITEM_PIPELINES = {
     'yelpTest.pipelines.YelptestPipeline': 300,

@@ -24,7 +24,7 @@ class YelpTestSpider(RedisCrawlSpider):
         item = YelpspiderItem()
         item['referer'] = response.request.headers['Referer'].decode(encoding='utf-8')
         item['detail_page_url'] = response.url
-        item['logo'] = response.meta['_logo']
+        # item['logo'] = response.meta['_logo']
         # 公司名
         item['company'] = self.get_company(response)
         item['address'] = self.get_address(response)
@@ -87,6 +87,10 @@ class YelpTestSpider(RedisCrawlSpider):
     def get_img_url(self, response):
         img_url = response.xpath('//a[contains(@href, "/biz_photos")]/img/@src').extract()
         if img_url:
+            referer = response.request.headers['Referer'].decode(encoding='utf-8')
+            detail_url = response.url
+            pics = ','.join(img_url)
+            print("referer: %s------detail_url: %s-----pics: %s" % (referer, detail_url, pics))
             return img_url[0]
         else:
             return ''
@@ -96,7 +100,7 @@ class YelpTestSpider(RedisCrawlSpider):
             '//div[contains(@class, "island")]/div[@class="from-biz-owner-content"]/p[position()<=3]').extract()
         if content:
             return ''.join(content).replace("<p>", "").replace("</p>", "").replace("\n", "")\
-                .replace("\xa0","").replace("<br>", "").strip()
+                .replace("\xa0", "").replace("<br>", "").strip()
         else:
             return ''
 

@@ -23,6 +23,5 @@ class SqlUtil(object):
     @classmethod
     def gen_current_time(self):
         today = datetime.now()
-        current_time = '{}-{}-{} {}:{}:{}'.format(today.year, today.month, today.day, today.hour, today.minute,
-                                                  today.second)
+        current_time = '{}-{}-{} {}:{}:{}'.format(today.year, today.month, today.day, today.hour, today.minute,today.second)
         return current_time

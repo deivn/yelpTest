@@ -14,6 +14,7 @@ class YelpspiderItem(scrapy.Item):
     # 当前页
     detail_page_url = scrapy.Field()
     # logo = scrapy.Field()
+    # state_info
     # 公司名
     company = scrapy.Field()
     address = scrapy.Field()

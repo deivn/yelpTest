@@ -117,7 +117,7 @@ class ProcessAllExceptionMiddleware(RetryMiddleware):
         if response.status in self.retry_http_codes:
             reason = response_status_message(response.status)
             time.sleep(random.randint(3, 5))
-            print('更换前的代理是: %s, headers---------------------%s' % (request.meta['proxy'], request.headers['Proxy-Authorization']))
+            print('代理异常，需要更换的代理是: %s, headers---------------------%s' % (request.meta['proxy'], request.headers['Proxy-Authorization']))
             # 更换代理
             self.proxy_opt(request, spider)
             print('更换后的代理是: %s, headers---------------------%s' % (request.meta['proxy'], request.headers['Proxy-Authorization']))
@@ -140,7 +140,7 @@ class ProcessAllExceptionMiddleware(RetryMiddleware):
             self.del_proxy(request.meta.get('proxy', False))
             time.sleep(random.randint(3, 5))
             # 设置新的代理
-            print('更换前的代理是: %s, headers---------------------%s' % (request.meta['proxy'], request.headers['Proxy-Authorization']))
+            print('代理异常，需要更换的代理是: %s, headers---------------------%s' % (request.meta['proxy'], request.headers['Proxy-Authorization']))
             # 更换代理
             self.proxy_opt(request, spider)
             print('更换后的代理是: %s, headers---------------------%s' % (request.meta['proxy'], request.headers['Proxy-Authorization']))

@@ -1,8 +1,6 @@
 #! /usr/bin/env python  
 # -*- coding:utf-8 -*-
-import math
-import time
-from yelpSpider.sqlutil import SqlUtil
+from yelpTest.sqlutil import SqlUtil
 
 
 class ServiceCompanyOpt(object):

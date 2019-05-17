@@ -77,4 +77,14 @@ ITEM_PIPELINES = {
     'scrapy_redis.pipelines.RedisPipeline': 400,
 }
 
+# 开启扩展
+MYEXT_ENABLED = True
+# 配置空闲持续时间单位为 360个 ，一个时间单位为5s
+IDLE_NUMBER = 360
+
+# 在 EXTENSIONS 配置，激活扩展
+EXTENSIONS = {
+    'yelpTest.extensions.RedisSpiderSmartIdleClosedExensions': 500,
+}
+
 

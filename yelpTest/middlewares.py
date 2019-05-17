@@ -119,7 +119,7 @@ class ProcessAllExceptionMiddleware(RetryMiddleware):
             time.sleep(random.randint(3, 5))
             print('更换前的代理是: %s, headers---------------------%s' % (request.meta['proxy'], request.headers['Proxy-Authorization']))
             # 更换代理
-            self.proxy_opt(self, request, spider)
+            self.proxy_opt(request, spider)
             print('更换后的代理是: %s, headers---------------------%s' % (request.meta['proxy'], request.headers['Proxy-Authorization']))
             return self._retry(request, reason, spider) or response
         # if response.status != 200:
@@ -142,7 +142,7 @@ class ProcessAllExceptionMiddleware(RetryMiddleware):
             # 设置新的代理
             print('更换前的代理是: %s, headers---------------------%s' % (request.meta['proxy'], request.headers['Proxy-Authorization']))
             # 更换代理
-            self.proxy_opt(self, request, spider)
+            self.proxy_opt(request, spider)
             print('更换后的代理是: %s, headers---------------------%s' % (request.meta['proxy'], request.headers['Proxy-Authorization']))
             # 随意封装一个response，返回给spider
             return self._retry(request, exception, spider)

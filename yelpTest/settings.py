@@ -16,8 +16,8 @@ SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderPriorityQueue"
 #SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderQueue"
 #SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderStack"
 
-REDIS_HOST = '192.168.139.101'
-REDIS_PORT = 6379
+REDIS_HOST = '47.106.140.94'
+REDIS_PORT = 6486
 # 数据库配置
 MYSQL_HOST = "184.181.11.233"
 MYSQL_PORT = 3306

@@ -24,7 +24,6 @@ from twisted.internet.error import TimeoutError, DNSLookupError, \
     ConnectionLost, TCPTimedOutError
 from twisted.web.client import ResponseFailed
 from scrapy.core.downloader.handlers.http11 import TunnelError
-from scrapy.http import HtmlResponse
 from scrapy.utils.response import response_status_message
 from scrapy.downloadermiddlewares.retry import RetryMiddleware
 import re
@@ -50,8 +49,8 @@ class RandomProxy(object):
     proxies = []
 
     def __init__(self):
-        # self.proxies = self.get_ip_proxy()
-        self.proxies = []
+        self.proxies = self.get_ip_proxy()
+        # self.proxies = []
         if self.proxies:
             for proxy in self.proxies:
                 proxy_item = ProxyInfo()
@@ -186,16 +185,25 @@ class ProcessAllExceptionMiddleware(RetryMiddleware):
 
     '''删除过期的代理'''
     def del_proxy(self, proxy, res=None):
-        proxies = MysqlHelper.get_all('select proxy from proxy_info', [])
-        if proxies:
-            for proxy_item in proxies:
-                ip_proxy = proxy_item[0]
-                _proxy = json.loads(ip_proxy)['ip_port']
-                _tmp = re.findall(_proxy, proxy)
-                if _tmp:
-                    print('已过期需要删除的代理: %s' % ip_proxy)
-                    count = MysqlHelper.delete('delete from proxy_info where proxy= %s', [ip_proxy])
-                    print('成功删除代理%s--------rows act: %d' % (proxy, count))
+        if proxy:
+            proxy_ip = proxy.split("//")[1]
+            pre_del = {"ip_port": proxy_ip, "user_pass": settings['USER_PASS']}
+            print('已过期需要删除的代理: %s' % proxy)
+            count = MysqlHelper.delete('delete from proxy_info where proxy= %s', [str(pre_del)])
+            print('成功删除代理%s--------rows act: %d' % (proxy, count))
+        # proxies = MysqlHelper.get_all('select proxy from proxy_info', [])
+        # lst = []
+        # if proxies:
+        #     for proxy_item in proxies:
+        #         j = json.loads(proxy_item[0])
+        #         lst.append(('http://%s' % j['ip_port'], str(proxy_item[0])))
+        # if lst:
+        #     for proxy_tmp in lst:
+        #         _proxy, pre_del = proxy_tmp
+        #         if _proxy == proxy:
+        #             print('已过期需要删除的代理: %s' % _proxy)
+        #             count = MysqlHelper.delete('delete from proxy_info where proxy= %s', [_proxy])
+        #             print('成功删除代理%s--------rows act: %d' % (_proxy, count))
 
     '''功能：获取新的可用的代理list'''
     def get_proxies(self, proxies):

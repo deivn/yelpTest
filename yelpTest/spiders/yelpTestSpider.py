@@ -13,10 +13,59 @@ class YelpTestSpider(RedisCrawlSpider):
     redis_key = 'yelpTestSpider:start_urls'
     # allowed_domains = ['yelp.com']
     # start_urls = ['https://www.yelp.com/search?find_desc=Mortgage+Company&find_loc=New+York%2C+NY&ns=1']
-    page_link = LinkExtractor(allow=(r"^https://www.yelp.com/search\?find_desc=.+[&]?[&find_loc=.+]?[&start=\d+]?$"))
-    detail_link = LinkExtractor(allow=(r'^https://www.yelp.com/biz/\w+-.*\?osq=.*'))
+    # 搜索条件 https://www.yelp.com/search?find_desc=&find_loc=New%20York%2C%20NY
+    # search_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?find_desc=&find_loc=.+[&start=\d+]?$'))
+    # search_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?find_desc=&find_loc=.+$'))
+    # 8类分类
+    # https://www.yelp.com/search?cflt=contractors&find_loc=Washington%2C%20DC
+    # contractors_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=contractors&find_loc=.+$"))
+    contractors_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=contractors&find_loc=.+[&start=\d+]?$'))
+    # https://www.yelp.com/search?cflt=landscaping&find_loc=Washington%2C%20DC
+    # landscaping_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=landscaping&find_loc=.+$"))
+    landscaping_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=landscaping&find_loc=.+[&start=\d+]?$'))
+    # https://www.yelp.com/search?cflt=electricians&find_loc=Washington%2C%20DC
+    # electricians_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=electricians&find_loc=.+$"))
+    electricians_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=electricians&find_loc=.+[&start=\d+]?$'))
+    # https://www.yelp.com/search?cflt=locksmiths&find_loc=Washington%2C%20DC
+    # locksmiths_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=locksmiths&find_loc=.+$"))
+    locksmiths_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=locksmiths&find_loc=.+[&start=\d+]?$'))
+    # https://www.yelp.com/search?cflt=homecleaning&find_loc=Washington%2C%20DC
+    # homecleaning_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=homecleaning&find_loc=.+$"))
+    homecleaning_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=homecleaning&find_loc=.+[&start=\d+]?$'))
+    # https://www.yelp.com/search?cflt=movers&find_loc=Washington%2C%20DC
+    # movers_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=movers&find_loc=.+$"))
+    movers_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=movers&find_loc=.+[&start=\d+]?$'))
+    # https://www.yelp.com/search?cflt=hvac&find_loc=Washington%2C%20DC
+    # hvac_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=hvac&find_loc=.+$"))
+    hvac_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=hvac&find_loc=.+[&start=\d+]?$'))
+    # https://www.yelp.com/search?cflt=plumbing&find_loc=Washington%2C%20DC
+    # plumbing_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=plumbing&find_loc=.+$"))
+    plumbing_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=plumbing&find_loc=.+[&start=\d+]?$'))
+
+    # distribute_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=\w+&find_loc=.+$'))
+    # 8类分类中的分页
+    # page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=\w+&find_loc=.+[&start=\d+]?$'))
+    # 每页中的详情页 https://www.yelp.com/biz/ge-construction-group-washington-dc-2
+    detail_link = LinkExtractor(allow=(r'^https://www.yelp.com/biz/\w+-\w+-.+$'))
     rules = (
-        Rule(page_link, follow=True),
+        # Rule(search_link, follow=False),
+        # Rule(contractors_link, follow=True),
+        Rule(contractors_page_link, follow=True),
+        # Rule(landscaping_link, follow=True),
+        Rule(landscaping_page_link, follow=True),
+        # Rule(electricians_link, follow=True),
+        Rule(electricians_page_link, follow=True),
+        # Rule(locksmiths_link, follow=True),
+        Rule(locksmiths_page_link, follow=True),
+        # Rule(homecleaning_link, follow=True),
+        Rule(homecleaning_page_link, follow=True),
+        # Rule(movers_link, follow=True),
+        Rule(movers_page_link, follow=True),
+        # Rule(hvac_link, follow=True),
+        Rule(hvac_page_link, follow=True),
+        # Rule(plumbing_link, follow=True),
+        Rule(plumbing_page_link, follow=True),
+        # Rule(page_link, follow=True),
         Rule(detail_link, callback='parse_item', follow=False),
     )
 
@@ -25,6 +74,7 @@ class YelpTestSpider(RedisCrawlSpider):
         item['referer'] = response.request.headers['Referer'].decode(encoding='utf-8')
         item['detail_page_url'] = response.url
         # item['logo'] = response.meta['_logo']
+        # item['city'] = self.get_city(response)
         # 公司名
         item['company'] = self.get_company(response)
         item['address'] = self.get_address(response)
@@ -44,6 +94,11 @@ class YelpTestSpider(RedisCrawlSpider):
         item['latitude'] = self.get_latitude(response)
         item['longitude'] = self.get_longitude(response)
         yield item
+
+    def get_city(self, response):
+        city = response.xpath('//span/input[@id="dropperText_Mast"]/@value').extract()
+        return city[0] if city else ""
+
 
     def get_company(self, response):
         company = response.xpath('//div[@class="top-shelf"]//h1/text()').extract()
@@ -91,7 +146,7 @@ class YelpTestSpider(RedisCrawlSpider):
             detail_url = response.url
             pics = ','.join(img_url)
             print("referer: %s------detail_url: %s-----pics: %s" % (referer, detail_url, pics))
-            return img_url[0]
+            return pics
         else:
             return ''
 

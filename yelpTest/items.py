@@ -18,6 +18,7 @@ class YelpspiderItem(scrapy.Item):
     # 公司名
     company = scrapy.Field()
     address = scrapy.Field()
+    # city = scrapy.Field()
     # category
     category = scrapy.Field()
     # 手机号

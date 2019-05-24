@@ -27,8 +27,8 @@ MYSQL_DB = "crawl_data"
 # redis配置
 REDIRECT_ENABLED = False
 COOKIES_ENABLED = False
-# 延时0.5秒
-DOWNLOAD_DELAY = 0.5
+# 延时3秒
+DOWNLOAD_DELAY = 2
 # 超时时间
 DOWNLOAD_TIMEOUT = 30
 # 每个账号失败次数上限，失败次数多有可能已经被禁
@@ -61,6 +61,13 @@ USER_AGENTS = [
     "Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; fr) Presto/2.9.168 Version/11.52",
 ]
 USER_PASS = "wh429004:ylsvtvu1"
+
+PROXIES = [
+    {"ip_port": "40.114.109.214:3128", "user_pass": ""},
+    {"ip_port": "40.114.109.214:3128", "user_pass": ""},
+    {"ip_port": "40.114.109.214:3128", "user_pass": ""},
+    {"ip_port": "40.114.109.214:3128", "user_pass": ""},
+]
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
     'scrapy.contrib.downloadermiddleware.redirect.RedirectMiddleware': None,

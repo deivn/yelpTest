@@ -28,7 +28,7 @@ MYSQL_DB = "crawl_data"
 REDIRECT_ENABLED = False
 COOKIES_ENABLED = False
 # 延时3秒
-DOWNLOAD_DELAY = 2
+DOWNLOAD_DELAY = 0.5
 # 超时时间
 DOWNLOAD_TIMEOUT = 30
 # 每个账号失败次数上限，失败次数多有可能已经被禁
@@ -87,7 +87,7 @@ ITEM_PIPELINES = {
 # 开启扩展
 MYEXT_ENABLED = True
 # 配置空闲持续时间单位为 360个 ，一个时间单位为5s
-IDLE_NUMBER = 360
+# IDLE_NUMBER = 360
 
 # 在 EXTENSIONS 配置，激活扩展
 EXTENSIONS = {

@@ -19,53 +19,74 @@ class YelpTestSpider(RedisCrawlSpider):
     # 8类分类
     # https://www.yelp.com/search?cflt=contractors&find_loc=Washington%2C%20DC
     # contractors_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=contractors&find_loc=.+$"))
-    contractors_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=contractors&find_loc=.+[&start=\d+]?$'))
-    # https://www.yelp.com/search?cflt=landscaping&find_loc=Washington%2C%20DC
-    # landscaping_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=landscaping&find_loc=.+$"))
-    landscaping_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=landscaping&find_loc=.+[&start=\d+]?$'))
-    # https://www.yelp.com/search?cflt=electricians&find_loc=Washington%2C%20DC
-    # electricians_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=electricians&find_loc=.+$"))
-    electricians_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=electricians&find_loc=.+[&start=\d+]?$'))
-    # https://www.yelp.com/search?cflt=locksmiths&find_loc=Washington%2C%20DC
-    # locksmiths_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=locksmiths&find_loc=.+$"))
-    locksmiths_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=locksmiths&find_loc=.+[&start=\d+]?$'))
-    # https://www.yelp.com/search?cflt=homecleaning&find_loc=Washington%2C%20DC
-    # homecleaning_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=homecleaning&find_loc=.+$"))
-    homecleaning_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=homecleaning&find_loc=.+[&start=\d+]?$'))
-    # https://www.yelp.com/search?cflt=movers&find_loc=Washington%2C%20DC
-    # movers_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=movers&find_loc=.+$"))
-    movers_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=movers&find_loc=.+[&start=\d+]?$'))
-    # https://www.yelp.com/search?cflt=hvac&find_loc=Washington%2C%20DC
-    # hvac_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=hvac&find_loc=.+$"))
-    hvac_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=hvac&find_loc=.+[&start=\d+]?$'))
-    # https://www.yelp.com/search?cflt=plumbing&find_loc=Washington%2C%20DC
-    # plumbing_link = LinkExtractor(allow=(r"^https://www.yelp.com/search?cflt=plumbing&find_loc=.+$"))
-    plumbing_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=plumbing&find_loc=.+[&start=\d+]?$'))
+    # ----------------------------第二个大类
+    # contractors_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=contractors&find_loc=.+[&start=\d+]?$'))
+    # landscaping_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=landscaping&find_loc=.+[&start=\d+]?$'))
+    # electricians_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=electricians&find_loc=.+[&start=\d+]?$'))
+    # locksmiths_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=locksmiths&find_loc=.+[&start=\d+]?$'))
+    # homecleaning_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=homecleaning&find_loc=.+[&start=\d+]?$'))
+    # movers_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=movers&find_loc=.+[&start=\d+]?$'))
+    # hvac_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=hvac&find_loc=.+[&start=\d+]?$'))
+    # plumbing_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=plumbing&find_loc=.+[&start=\d+]?$'))
+    # ---------------------------第一个大类
+    delivery_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?find_desc=delivery&find_loc=.+[&ytp_st=.+&attrs=.+&start=\d+]?$'))
+    takeout_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?find_desc=takeout&find_loc=.+[&ytp_st=.+&attrs=.+&start=\d+]?$'))
+    reservations_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?find_desc=reservations&find_loc=.+[&ytp_st=.+&attrs=.+&start=\d+]?$'))
+    waitlist_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=waitlist&find_loc=.+[&start=\d+]?$'))
+    burgers_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=burgers&find_loc=.+[&start=\d+]?$'))
+    chinese_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=chinese&find_loc=.+[&start=\d+]?$'))
+    italian_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=italian&find_loc=.+[&start=\d+]?$'))
+    mexican_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=mexican&find_loc=.+[&start=\d+]?$'))
+    # -------------------------第三大类
+    # https://www.yelp.com/search?cflt=autorepair&find_loc=New+York%2C+NY
+    # https://www.yelp.com/search?cflt=autorepair&find_loc=New%20York%2C%20NY&start=10
+    autorepair_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=autorepair&find_loc=.+[&start=\d+]?$'))
+    car_dealers_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=car_dealers&find_loc=.+[&start=\d+]?$'))
+    auto_detailing_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=auto_detailing&find_loc=.+[&start=\d+]?$'))
+    oilchange_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=oilchange&find_loc=.+[&start=\d+]?$'))
+    bodyshops_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=bodyshops&find_loc=.+[&start=\d+]?$'))
+    parking_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=parking&find_loc=.+[&start=\d+]?$'))
+    carwash_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=carwash&find_loc=.+[&start=\d+]?$'))
+    towing_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=towing&find_loc=.+[&start=\d+]?$'))
+    # -----------------------第四大类
+    dryclean_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=dryclean&find_loc=.+[&start=\d+]?$'))
+    hair_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=hair&find_loc=.+[&start=\d+]?$'))
+    mobilephonerepair_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=mobilephonerepair&find_loc=.+[&start=\d+]?$'))
+    gyms_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=gyms&find_loc=.+[&start=\d+]?$'))
+    bars_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=bars&find_loc=.+[&start=\d+]?$'))
+    massage_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=massage&find_loc=.+[&start=\d+]?$'))
+    nightlife_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=nightlife&find_loc=.+[&start=\d+]?$'))
+    shopping_page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=shopping&find_loc=.+[&start=\d+]?$'))
 
-    # distribute_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=\w+&find_loc=.+$'))
-    # 8类分类中的分页
-    # page_link = LinkExtractor(allow=(r'^https://www.yelp.com/search\?cflt=\w+&find_loc=.+[&start=\d+]?$'))
     # 每页中的详情页 https://www.yelp.com/biz/ge-construction-group-washington-dc-2
     detail_link = LinkExtractor(allow=(r'^https://www.yelp.com/biz/\w+-\w+-.+$'))
     rules = (
-        # Rule(search_link, follow=False),
-        # Rule(contractors_link, follow=True),
-        Rule(contractors_page_link, follow=True),
-        # Rule(landscaping_link, follow=True),
-        Rule(landscaping_page_link, follow=True),
-        # Rule(electricians_link, follow=True),
-        Rule(electricians_page_link, follow=True),
-        # Rule(locksmiths_link, follow=True),
-        Rule(locksmiths_page_link, follow=True),
-        # Rule(homecleaning_link, follow=True),
-        Rule(homecleaning_page_link, follow=True),
-        # Rule(movers_link, follow=True),
-        Rule(movers_page_link, follow=True),
-        # Rule(hvac_link, follow=True),
-        Rule(hvac_page_link, follow=True),
-        # Rule(plumbing_link, follow=True),
-        Rule(plumbing_page_link, follow=True),
-        # Rule(page_link, follow=True),
+        Rule(delivery_page_link, follow=True),
+        Rule(takeout_page_link, follow=True),
+        Rule(reservations_page_link, follow=True),
+        Rule(waitlist_page_link, follow=True),
+        Rule(burgers_page_link, follow=True),
+        Rule(chinese_page_link, follow=True),
+        Rule(italian_page_link, follow=True),
+        Rule(mexican_page_link, follow=True),
+
+        Rule(autorepair_page_link, follow=True),
+        Rule(car_dealers_page_link, follow=True),
+        Rule(auto_detailing_page_link, follow=True),
+        Rule(oilchange_page_link, follow=True),
+        Rule(bodyshops_page_link, follow=True),
+        Rule(parking_page_link, follow=True),
+        Rule(carwash_page_link, follow=True),
+        Rule(towing_page_link, follow=True),
+
+        Rule(dryclean_page_link, follow=True),
+        Rule(hair_page_link, follow=True),
+        Rule(mobilephonerepair_page_link, follow=True),
+        Rule(gyms_page_link, follow=True),
+        Rule(bars_page_link, follow=True),
+        Rule(massage_page_link, follow=True),
+        Rule(nightlife_page_link, follow=True),
+        Rule(shopping_page_link, follow=True),
         Rule(detail_link, callback='parse_item', follow=False),
     )
 
@@ -155,7 +176,7 @@ class YelpTestSpider(RedisCrawlSpider):
             '//div[contains(@class, "island")]/div[@class="from-biz-owner-content"]/p[position()<=3]').extract()
         if content:
             return ''.join(content).replace("<p>", "").replace("</p>", "").replace("\n", "")\
-                .replace("\xa0", "").replace("<br>", "").strip()
+                .replace("\xa0", "").replace("<br>", "").replace("\n", "").strip()
         else:
             return ''
 

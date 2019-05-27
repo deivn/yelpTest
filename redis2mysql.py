@@ -40,6 +40,8 @@ def main():
                 item['longitude'] = ' '
             if not item['content']:
                 item['content'] = ' '
+            else:
+                item['content'] = item['content'].replace("\n", "")
 
             if item['phone'] and item['address']:
                 today = datetime.now()
@@ -52,10 +54,10 @@ def main():
                     if len(city_state) == 2:
                         city = city_state[0].replace(' ', '')
                         state = re.findall(r'\w+\D', city_state[1])
-                    elif len(city_state)>2:
+                    elif len(city_state) > 2:
                         city = city_state[1].replace(' ', '')
                         state = re.findall(r'\w+\D', city_state[2])
-                    cur.execute("INSERT INTO service_craw_data01 (referer, detail_page_url, logo, company, address, category, phone, websiteurl, img_url, content, business_content, latitude, longitude, city, state, date_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [item['referer'], item['detail_page_url'], ' ', item['company'], item['address'], item['category'], item['phone'], item['websiteurl'], item['img_url'], item['content'], item['business_content'], item['latitude'], item['longitude'], city, state[0], current_time])
+                    cur.execute("INSERT INTO service_craw_data02 (referer, detail_page_url, logo, company, address, category, phone, websiteurl, img_url, content, business_content, latitude, longitude, city, state, date_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [item['referer'], item['detail_page_url'], ' ', item['company'], item['address'], item['category'], item['phone'], item['websiteurl'], item['img_url'], item['content'], item['business_content'], item['latitude'], item['longitude'], city, state[0], current_time])
                     # 提交sql事务
                     mysqlcli.commit()
                     #关闭本次操作

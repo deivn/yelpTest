@@ -49,15 +49,19 @@ def main():
                 city = ''
                 state = ''
                 address = item['address']
+                print("address: %s" % address)
                 city_state = address.split(',')
                 if city_state:
                     if len(city_state) == 2:
                         city = city_state[0].replace(' ', '')
                         state = re.findall(r'\w+\D', city_state[1])
-                    elif len(city_state) > 2:
+                    elif len(city_state) == 3:
                         city = city_state[1].replace(' ', '')
                         state = re.findall(r'\w+\D', city_state[2])
-                    cur.execute("INSERT INTO service_craw_data02 (referer, detail_page_url, logo, company, address, category, phone, websiteurl, img_url, content, business_content, latitude, longitude, city, state, date_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [item['referer'], item['detail_page_url'], ' ', item['company'], item['address'], item['category'], item['phone'], item['websiteurl'], item['img_url'], item['content'], item['business_content'], item['latitude'], item['longitude'], city, state[0], current_time])
+                    elif len(city_state) > 3:
+                        city = city_state[1].replace(' ', '')
+                        state = re.findall(r'\w+\D', city_state[3])
+                    cur.execute("INSERT ignore  service_craw_data04 (referer, detail_page_url, logo, company, address, category, phone, websiteurl, img_url, content, business_content, latitude, longitude, city, state, date_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [item['referer'], item['detail_page_url'], ' ', item['company'], item['address'], item['category'], item['phone'], item['websiteurl'], item['img_url'], item['content'], item['business_content'], item['latitude'], item['longitude'], city, state[0], current_time])
                     # 提交sql事务
                     mysqlcli.commit()
                     #关闭本次操作
